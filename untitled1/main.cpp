@@ -11,14 +11,14 @@ pthread_mutex_t mutex;
 
 // Штанько Екатерина Олеговна БПИ193 Вариант 27
 
-//27. Пляшущие человечки. На тайном собрании глав преступного мира города Лондона
+//27. Пляшущие человечки. На тайном собрании глав преступного мира города Лондона
 //председатель собрания профессор Мориарти постановил: отныне вся переписка
-//между преступниками должна вестись тайнописью. В качестве стандарта были
-//выбраны «пляшущие человечки», шифр, в котором каждой букве латинского
-//алфавита соответствует хитроумный значок. Реализовать многопоточное
-//приложение, шифрующее исходный текст (в качестве ключа используется кодовая
-//таблица, устанавливающая однозначное соответствие между каждой буквой и каким-
-//нибудь числом). Каждый поток шифрует свои кусочки текста. При решении
+//между преступниками должна вестись тайнописью. В качестве стандарта были
+//выбраны «пляшущие человечки», шифр, в котором каждой букве латинского
+//алфавита соответствует хитроумный значок. Реализовать многопоточное
+//приложение, шифрующее исходный текст (в качестве ключа используется кодовая
+//таблица, устанавливающая однозначное соответствие между каждой буквой и каким-
+//нибудь числом). Каждый поток шифрует свои кусочки текста. При решении
 //использовать парадигму портфеля задач.
 
 // Аргументы для запуска приложения из командной строки:
@@ -57,8 +57,8 @@ static void letterSymbolFull() {
         do {
             num = rand() % 38 + 129;
             exist = std::find(numbers.begin(), numbers.end(), num) != numbers.end();
-            numbers.push_back(num);
-        } while (num == (int) ' ' || exist || num == 152  || num == 150);
+        } while (num == (int) ' ' || exist || num == 152 || num == 150);
+        numbers.push_back(num);
         letterSymbol[(char) i] = num;
     }
 }
@@ -89,25 +89,23 @@ static void readFromFile() {
     if (fileInput.is_open()) {
         int numberOfInputString = 0;
         while (getline(fileInput, line)) {
-            if(numberOfInputString > 0){
+            if (numberOfInputString > 0) {
                 inputString += "\n" + line;
-            }
-            else {
+            } else {
                 inputString += line;
             }
             numberOfInputString++;
         }
-    }
-    else{
+    } else {
         throw std::invalid_argument("Файл с входными данными найден не был!");
     }
     fileInput.close();
 }
 
 /// Переводит заглавные буквы в строчные
-static void toLowerCase(){
+static void toLowerCase() {
     for (int i = 0; i < inputString.size(); ++i) {
-        if(inputString[i] >= 'A' && inputString[i] <= 'Z'){
+        if (inputString[i] >= 'A' && inputString[i] <= 'Z') {
             inputString[i] = tolower(inputString[i]);
         }
     }
@@ -128,10 +126,9 @@ static void outputToFile(const std::string &output) {
 /// Кодирует латинские символы в переданной строке и записывает результат в строку для вывода.
 static void encoding(std::string str, int begin) {
     for (int i = 0; i < str.size(); ++i) {
-        if(str[i] >= 'a' && str[i] <= 'z') {
+        if (str[i] >= 'a' && str[i] <= 'z') {
             outputString[begin + i] = (char) letterSymbol[str[i]];
-        }
-        else{
+        } else {
             outputString[begin + i] = str[i];
         }
     }
@@ -168,14 +165,14 @@ void *func(void *param) {
 int main(int argc, char *argv[]) {
     letterSymbolFull();
     try {
-        if(argc != 4){
+        if (argc != 4) {
             throw std::invalid_argument("Ошибка в данных переданных через командную строку!");
         }
         inputPath = argv[1];
         outputPath = argv[2];
         numberOfThreads = atoi(argv[3]);
         if (numberOfThreads < 1) {
-             throw std::invalid_argument("Число потоков не может быть меньше 1!");
+            throw std::invalid_argument("Число потоков не может быть меньше 1!");
         }
         readFromFile();
         toLowerCase();
@@ -203,7 +200,7 @@ int main(int argc, char *argv[]) {
         outputToFile(outputString);
     }
     catch (const std::exception &e) {
-        std::cout<<e.what();
+        std::cout << e.what();
     }
     return 0;
 }
