@@ -53,7 +53,7 @@ static void letterSymbolFull() {
     int num = 0;
     std::vector<int> numbers;
     bool exist;
-    for (int i = 97; i < 123; ++i) {
+    for (int i = 'a'; i < 'z' + 1; ++i) {
         do {
             num = rand() % 38 + 129;
             exist = std::find(numbers.begin(), numbers.end(), num) != numbers.end();
