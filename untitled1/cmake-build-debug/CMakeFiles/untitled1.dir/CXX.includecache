@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/miss.ekaterina/Desktop/untitled1/main.cpp
+iostream
+-
+thread
+-
+fstream
+-
+cmath
+-
+algorithm
+-
+map
+-
+vector
+-
+pthread.h
+-
+
